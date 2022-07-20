@@ -1,20 +1,53 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import BottomTabNavigation from "./components/BottomTabNavigation";
+import Colors from "./util/colors";
+import { AddExpenseScreen, EditExpenseScreen } from "./screens";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style="light" />
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: Colors.primary400 },
+            headerTintColor: Colors.primary100,
+            contentStyle: { backgroundColor: Colors.primary700 },
+            headerBackVisible: false,
+            animation: "slide_from_bottom",
+          }}
+        >
+          <Stack.Screen
+            name="BottomTabs"
+            options={{
+              title: "BottomTabs",
+              headerShown: false,
+            }}
+            component={BottomTabNavigation}
+          />
+          <Stack.Screen
+            name="AddExpense"
+            component={AddExpenseScreen}
+            options={{
+              title: "Add Expense",
+              contentStyle: { backgroundColor: Colors.primary900 },
+            }}
+          />
+          <Stack.Screen
+            name="EditExpense"
+            component={EditExpenseScreen}
+            options={{
+              title: "Edit Expense",
+              contentStyle: { backgroundColor: Colors.primary900 },
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
