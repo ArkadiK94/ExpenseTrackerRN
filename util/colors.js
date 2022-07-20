@@ -4,7 +4,7 @@ const Colors = {
   primary400: "#3418AF",
   primary500: "#3F04BA",
   primary700: "#2D0583",
-  primary900: "#1C0C53",
+  primary900: "#15044b",
   secondery200: "#9070CD",
   secondery500: "#ECB537",
   secondery700: "#790101",

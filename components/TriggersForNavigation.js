@@ -6,6 +6,7 @@ const TriggersForNavigation = ({
   children,
   onPress = null,
   style,
+  android_ripple_color,
 }) => {
   const navigation = useNavigation();
   const pressHandler = () => {
@@ -15,7 +16,7 @@ const TriggersForNavigation = ({
     navigation.navigate(screenName);
   };
   return (
-    <Pressable onPress={pressHandler}>
+    <Pressable onPress={pressHandler} android_ripple={{ color: "#fff" }}>
       <View style={style}>{children}</View>
     </Pressable>
   );
