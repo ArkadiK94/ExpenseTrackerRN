@@ -6,13 +6,18 @@ import TriggerForNavigation from "../components/TriggersForNavigation";
 const CancelWithActionBtns = ({ actionName, onPressAction }) => {
   return (
     <View style={styles.btnsContainer}>
-      <TriggerForNavigation screenName="BottomTabs" style={styles.secondaryBtn}>
+      <TriggerForNavigation
+        screenName="BottomTabs"
+        style={styles.secondaryBtn}
+        android_ripple_color={Colors.primary100}
+      >
         <Text style={styles.secondaryBtnText}>Cancel</Text>
       </TriggerForNavigation>
       <TriggerForNavigation
         screenName="BottomTabs"
         style={styles.mainBtn}
         onPress={onPressAction}
+        android_ripple_color={Colors.primary100}
       >
         <Text style={styles.mainBtnText}>{actionName}</Text>
       </TriggerForNavigation>
@@ -24,6 +29,7 @@ export default CancelWithActionBtns;
 
 const styles = StyleSheet.create({
   btnsContainer: {
+    width: "40%",
     flexDirection: "row",
     paddingTop: 25,
     paddingBottom: 20,
@@ -47,9 +53,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
-    height: 50,
+    height: 40,
     paddingHorizontal: 50,
-    marginRight: 10,
   },
   secondaryBtnText: {
     color: Colors.secondery200,

@@ -1,4 +1,4 @@
-import { Pressable, View } from "react-native";
+import { Pressable, View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const TriggersForNavigation = ({
@@ -6,7 +6,7 @@ const TriggersForNavigation = ({
   children,
   onPress = null,
   style,
-  android_ripple_color,
+  android_ripple_color = "#fff",
 }) => {
   const navigation = useNavigation();
   const pressHandler = () => {
@@ -16,10 +16,25 @@ const TriggersForNavigation = ({
     navigation.navigate(screenName);
   };
   return (
-    <Pressable onPress={pressHandler} android_ripple={{ color: "#fff" }}>
-      <View style={style}>{children}</View>
-    </Pressable>
+    <View style={styles.outerContainer}>
+      <Pressable
+        onPress={pressHandler}
+        android_ripple={{ color: android_ripple_color }}
+        style={[styles.innerContainer, style]}
+      >
+        {children}
+      </Pressable>
+    </View>
   );
 };
 
 export default TriggersForNavigation;
+
+const styles = StyleSheet.create({
+  outerContainer: {
+    width: "100%",
+    overflow: "hidden",
+    borderRadius: 8,
+  },
+  innerContainer: {},
+});

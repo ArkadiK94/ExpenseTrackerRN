@@ -26,10 +26,11 @@ const BottomTabNavigation = () => {
         headerTintColor: Colors.primary100,
         headerRight: () => {
           return (
-            <TriggersForNavigation screenName="AddExpense">
-              <View style={{ paddingRight: 20 }}>
-                <Ionicons name="add" size={24} color="#fff" />
-              </View>
+            <TriggersForNavigation
+              screenName="AddExpense"
+              style={{ alignSelf: "flex-end", marginRight: 20 }}
+            >
+              <Ionicons name="add" size={24} color="#fff" />
             </TriggersForNavigation>
           );
         },
@@ -41,7 +42,7 @@ const BottomTabNavigation = () => {
         options={{
           title: "Recent Expenses",
           tabBarLabel: "Recent",
-          tabBarIcon: ({ color, focused }) => {
+          tabBarIcon: ({ color }) => {
             return (
               <MaterialCommunityIcons
                 name="timer-sand-empty"

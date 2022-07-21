@@ -10,7 +10,11 @@ const EditExpenseScreen = () => {
     <View style={styles.rootContainer}>
       <CancelWithActionBtns actionName="Update" />
       <Text style={styles.underLine}></Text>
-      <TriggersForNavigation screenName="BottomTabs" style={styles.bin}>
+      <TriggersForNavigation
+        screenName="BottomTabs"
+        style={styles.bin}
+        android_ripple_color={Colors.primary500}
+      >
         <Ionicons name="trash-outline" color={Colors.secondery700} size={35} />
       </TriggersForNavigation>
     </View>
@@ -31,5 +35,6 @@ const styles = StyleSheet.create({
   },
   bin: {
     marginTop: 20,
+    alignSelf: "center",
   },
 });

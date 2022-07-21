@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     alignItems: "center",
+    alignSelf: "center",
     justifyContent: "space-between",
   },
   title: {

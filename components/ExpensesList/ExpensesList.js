@@ -1,13 +1,27 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 
 import ExpensesTotalItem from "./ExpensesTotalItem";
 import ExpensesItem from "./ExpensesItem";
 
-const ExpensesList = ({ title, sum }) => {
+const ExpensesList = ({ title, sum, data }) => {
   return (
     <View style={styles.rootContainer}>
       <ExpensesTotalItem title={title} sum={sum} />
-      <ExpensesItem title="Test" date="2022-5-19" price="19.99" />
+      <FlatList
+        data={data}
+        renderItem={(itemData) => {
+          return (
+            <ExpensesItem
+              title={itemData.item.title}
+              date={itemData.item.date}
+              price={itemData.item.price}
+            />
+          );
+        }}
+        keyExtractor={(item) => {
+          return item.id;
+        }}
+      />
     </View>
   );
 };
@@ -15,7 +29,6 @@ const ExpensesList = ({ title, sum }) => {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    alignItems: "center",
   },
 });
 
