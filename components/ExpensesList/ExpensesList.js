@@ -15,6 +15,7 @@ const ExpensesList = ({ title, sum, data }) => {
               title={itemData.item.title}
               date={itemData.item.date}
               price={itemData.item.price}
+              id={itemData.item.id}
             />
           );
         }}

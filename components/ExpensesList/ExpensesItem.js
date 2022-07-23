@@ -9,6 +9,7 @@ const ExpensesItem = ({ title, date, price, id }) => {
       screenName="EditExpense"
       style={styles.mainContainer}
       android_ripple_color={Colors.primary900}
+      expenseId={id}
     >
       <View>
         <Text style={styles.title}>{title}</Text>

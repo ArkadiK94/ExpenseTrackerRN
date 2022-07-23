@@ -1,17 +1,32 @@
-import ExpensesList from "../components/ExpensesList";
+import { useContext } from "react";
 
-const data = [
-  { id: 1, title: "Test", date: "2022-5-19", price: "19.99" },
-  { id: 2, title: "Another Book", date: "2022-2-18", price: "18.59" },
-  { id: 3, title: "Another Book", date: "2022-2-18", price: "18.59" },
-  { id: 4, title: "Another Book", date: "2022-2-18", price: "18.59" },
-  { id: 5, title: "Another Book", date: "2022-2-18", price: "18.59" },
-  { id: 6, title: "Another Book", date: "2022-2-18", price: "18.59" },
-  { id: 7, title: "Another Book", date: "2022-2-18", price: "18.59" },
-];
+import ExpensesList from "../components/ExpensesList";
+import { ExpensesContext } from "../store/expenses-context";
+
+const isNotBeforeXDays = (date, days) => {
+  const msOfDays = days * 24 * 60 * 60 * 1000;
+  const msTillToday = new Date() - new Date(date);
+  return msTillToday < msOfDays;
+};
 
 const RecentExpensesScreen = () => {
-  return <ExpensesList title="Last 7 Days" sum={18.59} data={data} />;
+  const expensesCtx = useContext(ExpensesContext);
+  const recentExpenses = expensesCtx.expenses.filter((expense) => {
+    return isNotBeforeXDays(expense.date, 7);
+  });
+  const expensesSum = recentExpenses.reduce((total, item) => {
+    return total + item.price;
+  }, 0);
+  const recentExpensesInOrder = recentExpenses.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+  return (
+    <ExpensesList
+      title="Last 7 Days"
+      sum={expensesSum}
+      data={recentExpensesInOrder}
+    />
+  );
 };
 
 export default RecentExpensesScreen;

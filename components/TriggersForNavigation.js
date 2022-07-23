@@ -6,6 +6,7 @@ const TriggersForNavigation = ({
   children,
   onPress = null,
   style,
+  expenseId,
   android_ripple_color = "#fff",
 }) => {
   const navigation = useNavigation();
@@ -13,7 +14,11 @@ const TriggersForNavigation = ({
     if (onPress) {
       onPress();
     }
-    navigation.navigate(screenName);
+    if (expenseId) {
+      navigation.navigate(screenName, { itemId: expenseId });
+    } else {
+      navigation.navigate(screenName);
+    }
   };
   return (
     <View style={styles.outerContainer}>
