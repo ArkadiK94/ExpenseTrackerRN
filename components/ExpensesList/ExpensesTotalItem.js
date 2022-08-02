@@ -6,7 +6,7 @@ const ExpensesTotalItem = ({ title, sum }) => {
   return (
     <View style={styles.totalItemContainer}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.sum}>${sum}</Text>
+      <Text style={styles.sum}>${sum.toFixed(2)}</Text>
     </View>
   );
 };

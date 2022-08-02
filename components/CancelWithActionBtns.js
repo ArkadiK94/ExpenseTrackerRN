@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: 40,
-    paddingHorizontal: 50,
   },
   mainBtnText: {
     color: Colors.primary200,
@@ -54,7 +53,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: 40,
-    paddingHorizontal: 50,
   },
   secondaryBtnText: {
     color: Colors.secondery200,
