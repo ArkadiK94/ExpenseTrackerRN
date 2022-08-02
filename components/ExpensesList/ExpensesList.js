@@ -3,10 +3,10 @@ import { View, StyleSheet, FlatList } from "react-native";
 import ExpensesTotalItem from "./ExpensesTotalItem";
 import ExpensesItem from "./ExpensesItem";
 
-const ExpensesList = ({ title, sum, data }) => {
+const ExpensesList = ({ title, data }) => {
   return (
     <View style={styles.rootContainer}>
-      <ExpensesTotalItem title={title} sum={sum} />
+      <ExpensesTotalItem title={title} expenses={data} />
       <FlatList
         data={data}
         renderItem={(itemData) => {

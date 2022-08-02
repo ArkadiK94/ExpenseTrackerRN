@@ -14,19 +14,10 @@ const RecentExpensesScreen = () => {
   const recentExpenses = expensesCtx.expenses.filter((expense) => {
     return isNotBeforeXDays(expense.date, 7);
   });
-  const expensesSum = recentExpenses.reduce((total, item) => {
-    return total + item.price;
-  }, 0);
   const recentExpensesInOrder = recentExpenses.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
-  return (
-    <ExpensesList
-      title="Last 7 Days"
-      sum={expensesSum}
-      data={recentExpensesInOrder}
-    />
-  );
+  return <ExpensesList title="Last 7 Days" data={recentExpensesInOrder} />;
 };
 
 export default RecentExpensesScreen;
