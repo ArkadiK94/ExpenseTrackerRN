@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import BottomTabNavigation from "./components/BottomTabNavigation";
-import Colors from "./util/colors";
+import { GlobalStyles } from "./util/styles";
 import { AddExpenseScreen, EditExpenseScreen } from "./screens";
 import ExpensesContextProvider from "./store/expenses-context";
 
@@ -17,9 +17,9 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              headerStyle: { backgroundColor: Colors.primary400 },
-              headerTintColor: Colors.primary100,
-              contentStyle: { backgroundColor: Colors.primary700 },
+              headerStyle: { backgroundColor: GlobalStyles.colors.primary400 },
+              headerTintColor: GlobalStyles.colors.primary100,
+              contentStyle: { backgroundColor: GlobalStyles.colors.primary700 },
               headerBackVisible: false,
               animation: "slide_from_bottom",
             }}
@@ -37,7 +37,9 @@ export default function App() {
               component={AddExpenseScreen}
               options={{
                 title: "Add Expense",
-                contentStyle: { backgroundColor: Colors.primary900 },
+                contentStyle: {
+                  backgroundColor: GlobalStyles.colors.primary900,
+                },
               }}
             />
             <Stack.Screen
@@ -45,7 +47,9 @@ export default function App() {
               component={EditExpenseScreen}
               options={{
                 title: "Edit Expense",
-                contentStyle: { backgroundColor: Colors.primary900 },
+                contentStyle: {
+                  backgroundColor: GlobalStyles.colors.primary900,
+                },
               }}
             />
           </Stack.Navigator>

@@ -3,6 +3,6 @@ export default class Expense {
     this.id = id;
     this.title = title;
     this.price = price;
-    this.date = date;
+    this.date = new Date(date);
   }
 }

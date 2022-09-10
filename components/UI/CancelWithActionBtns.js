@@ -1,26 +1,26 @@
 import { Text, View, StyleSheet } from "react-native";
 
-import Colors from "../util/colors";
-import TriggerForNavigation from "../components/TriggersForNavigation";
+import { GlobalStyles } from "../../util/styles";
+import TriggersForNavigation from "./TriggersForNavigation";
 
 const CancelWithActionBtns = ({ actionName, onPressAction }) => {
   return (
     <View style={styles.btnsContainer}>
-      <TriggerForNavigation
+      <TriggersForNavigation
         screenName="BottomTabs"
         style={styles.secondaryBtn}
-        android_ripple_color={Colors.primary100}
+        android_ripple_color={GlobalStyles.colors.primary100}
       >
         <Text style={styles.secondaryBtnText}>Cancel</Text>
-      </TriggerForNavigation>
-      <TriggerForNavigation
+      </TriggersForNavigation>
+      <TriggersForNavigation
         screenName="BottomTabs"
         style={styles.mainBtn}
         onPress={onPressAction}
-        android_ripple_color={Colors.primary100}
+        android_ripple_color={GlobalStyles.colors.primary100}
       >
         <Text style={styles.mainBtnText}>{actionName}</Text>
-      </TriggerForNavigation>
+      </TriggersForNavigation>
     </View>
   );
 };
@@ -37,25 +37,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   mainBtn: {
-    backgroundColor: Colors.primary400,
+    backgroundColor: GlobalStyles.colors.primary400,
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     height: 40,
   },
   mainBtnText: {
-    color: Colors.primary200,
+    color: GlobalStyles.colors.primary200,
     fontSize: 16,
   },
   secondaryBtn: {
-    backgroundColor: Colors.primary900,
+    backgroundColor: GlobalStyles.colors.primary900,
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     height: 40,
   },
   secondaryBtnText: {
-    color: Colors.secondery200,
+    color: GlobalStyles.colors.secondery200,
     fontSize: 16,
   },
 });

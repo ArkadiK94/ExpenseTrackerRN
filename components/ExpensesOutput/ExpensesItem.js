@@ -1,19 +1,20 @@
 import { Text, View, StyleSheet } from "react-native";
 
-import TriggersForNavigation from "../TriggersForNavigation";
-import Colors from "../../util/colors";
+import TriggersForNavigation from "../UI/TriggersForNavigation";
+import { GlobalStyles } from "../../util/styles";
+import { getFormattedDate } from "../../util/date";
 
 const ExpensesItem = ({ title, date, price, id }) => {
   return (
     <TriggersForNavigation
       screenName="EditExpense"
       style={styles.mainContainer}
-      android_ripple_color={Colors.primary900}
+      android_ripple_color={GlobalStyles.colors.primary900}
       expenseId={id}
     >
       <View>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.date}>{getFormattedDate(date)}</Text>
       </View>
       <View style={styles.priceContainer}>
         <Text style={styles.price}>{price}</Text>
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     elevation: 8,
     borderRadius: 8,
-    backgroundColor: Colors.primary500,
+    backgroundColor: GlobalStyles.colors.primary500,
     width: "90%",
     alignSelf: "center",
     padding: 10,
@@ -39,12 +40,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: Colors.primary200,
+    color: GlobalStyles.colors.primary200,
     fontWeight: "bold",
   },
   date: {
     fontSize: 16,
-    color: Colors.primary200,
+    color: GlobalStyles.colors.primary200,
     fontWeight: "300",
   },
   priceContainer: {
@@ -54,12 +55,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
-    borderColor: Colors.primary700,
+    borderColor: GlobalStyles.colors.primary700,
     borderWidth: 2,
     elevation: 4,
   },
   price: {
-    color: Colors.primary500,
+    color: GlobalStyles.colors.primary500,
     fontWeight: "bold",
     fontSize: 18,
   },

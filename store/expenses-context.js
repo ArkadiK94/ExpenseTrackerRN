@@ -18,6 +18,9 @@ const ExpensesContextProvider = ({ children }) => {
     new Expense(6, "Chair", 99.99, "2022-07-16"),
     new Expense(7, "Lemon", 2.99, "2022-07-23"),
     new Expense(8, "Watermelon", 7.99, "2022-07-17"),
+    new Expense(9, "Chair", 99.99, "2022-07-16"),
+    new Expense(10, "Lemon", 2.99, "2022-07-23"),
+    new Expense(11, "Watermelon", 7.99, "2022-07-17"),
   ]);
   const addExpense = (id) => {};
 

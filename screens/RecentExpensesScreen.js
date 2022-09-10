@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import ExpensesList from "../components/ExpensesList";
+import ExpensesOutput from "../components/ExpensesOutput";
 import { ExpensesContext } from "../store/expenses-context";
 
 const isNotBeforeXDays = (date, days) => {
@@ -17,7 +17,7 @@ const RecentExpensesScreen = () => {
   const recentExpensesInOrder = recentExpenses.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
-  return <ExpensesList title="Last 7 Days" data={recentExpensesInOrder} />;
+  return <ExpensesOutput title="Last 7 Days" data={recentExpensesInOrder} />;
 };
 
 export default RecentExpensesScreen;

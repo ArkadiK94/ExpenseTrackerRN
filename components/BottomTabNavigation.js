@@ -1,36 +1,35 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import { View } from "react-native";
 
-import Colors from "../util/colors";
+import { GlobalStyles } from "../util/styles";
 import { RecentExpensesScreen, AllExpensesScreen } from "../screens";
-import TriggersForNavigation from "./TriggersForNavigation";
+import TriggersForNavigation from "./UI/TriggersForNavigation";
 
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
   return (
     <BottomTab.Navigator
-      sceneContainerStyle={{ backgroundColor: Colors.primary700 }}
+      sceneContainerStyle={{ backgroundColor: GlobalStyles.colors.primary700 }}
       screenOptions={{
-        tabBarActiveTintColor: Colors.secondery500,
+        tabBarActiveTintColor: GlobalStyles.colors.secondery500,
         tabBarStyle: {
-          backgroundColor: Colors.primary500,
+          backgroundColor: GlobalStyles.colors.primary500,
           paddingBottom: 10,
           paddingTop: 5,
           height: 60,
         },
         headerStyle: {
-          backgroundColor: Colors.primary400,
+          backgroundColor: GlobalStyles.colors.primary400,
         },
-        headerTintColor: Colors.primary100,
-        headerRight: () => {
+        headerTintColor: GlobalStyles.colors.primary100,
+        headerRight: ({ tintColor }) => {
           return (
             <TriggersForNavigation
               screenName="AddExpense"
               style={{ alignSelf: "flex-end", marginRight: 20 }}
             >
-              <Ionicons name="add" size={24} color="#fff" />
+              <Ionicons name="add" size={24} color={tintColor} />
             </TriggersForNavigation>
           );
         },

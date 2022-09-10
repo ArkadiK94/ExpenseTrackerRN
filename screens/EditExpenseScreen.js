@@ -2,9 +2,9 @@ import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
 
-import CancelWithActionBtns from "../components/CancelWithActionBtns";
-import Colors from "../util/colors";
-import TriggersForNavigation from "../components/TriggersForNavigation";
+import CancelWithActionBtns from "../components/UI/CancelWithActionBtns";
+import { GlobalStyles } from "../util/styles";
+import TriggersForNavigation from "../components/UI/TriggersForNavigation";
 import { ExpensesContext } from "../store/expenses-context";
 
 const EditExpenseScreen = ({ route }) => {
@@ -22,10 +22,14 @@ const EditExpenseScreen = ({ route }) => {
       <TriggersForNavigation
         screenName="BottomTabs"
         style={styles.bin}
-        android_ripple_color={Colors.primary500}
+        android_ripple_color={GlobalStyles.colors.primary500}
         onPress={removeHeandler}
       >
-        <Ionicons name="trash-outline" color={Colors.secondery700} size={35} />
+        <Ionicons
+          name="trash-outline"
+          color={GlobalStyles.colors.secondery700}
+          size={35}
+        />
       </TriggersForNavigation>
     </View>
   );
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
     width: "90%",
     borderWidth: 1,
     height: 0,
-    borderColor: Colors.secondery200,
+    borderColor: GlobalStyles.colors.secondery200,
   },
   bin: {
     marginTop: 20,

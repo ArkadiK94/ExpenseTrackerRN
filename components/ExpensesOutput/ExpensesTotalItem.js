@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 
-import Colors from "../../util/colors";
+import { GlobalStyles } from "../../util/styles";
 
 const ExpensesTotalItem = ({ title, expenses }) => {
   const expensesSum = expenses.reduce((total, item) => {
@@ -19,7 +19,7 @@ export default ExpensesTotalItem;
 const styles = StyleSheet.create({
   totalItemContainer: {
     width: "90%",
-    backgroundColor: Colors.primary100,
+    backgroundColor: GlobalStyles.colors.primary100,
     borderRadius: 8,
     flexDirection: "row",
     marginTop: 20,
@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    color: Colors.primary500,
+    color: GlobalStyles.colors.primary500,
     fontWeight: "500",
   },
   sum: {
-    color: Colors.primary500,
+    color: GlobalStyles.colors.primary500,
     fontWeight: "900",
     fontSize: 22,
   },

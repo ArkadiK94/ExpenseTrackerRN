@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 
-import CancelWithActionBtns from "../components/CancelWithActionBtns";
+import CancelWithActionBtns from "../components/UI/CancelWithActionBtns";
 
 const AddExpenseScreen = () => {
   return (
