@@ -9,7 +9,7 @@ const CancelWithActionBtns = ({ actionName, onPressAction }) => {
       <TriggersForNavigation
         screenName="BottomTabs"
         style={styles.secondaryBtn}
-        android_ripple_color={GlobalStyles.colors.primary100}
+        android_ripple_color={GlobalStyles.colors.primary400}
       >
         <Text style={styles.secondaryBtnText}>Cancel</Text>
       </TriggersForNavigation>
@@ -17,7 +17,7 @@ const CancelWithActionBtns = ({ actionName, onPressAction }) => {
         screenName="BottomTabs"
         style={styles.mainBtn}
         onPress={onPressAction}
-        android_ripple_color={GlobalStyles.colors.primary100}
+        android_ripple_color={GlobalStyles.colors.primary900}
       >
         <Text style={styles.mainBtnText}>{actionName}</Text>
       </TriggersForNavigation>

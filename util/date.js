@@ -9,3 +9,9 @@ export function getFormattedDate(date) {
   }
   return `${date.getFullYear()}-${month}-${day}`;
 }
+
+export function isNotBeforeXDays(date, days) {
+  const msOfDays = days * 24 * 60 * 60 * 1000;
+  const msTillToday = new Date() - new Date(date);
+  return msTillToday < msOfDays;
+}

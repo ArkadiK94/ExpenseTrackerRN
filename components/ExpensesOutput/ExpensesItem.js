@@ -7,7 +7,7 @@ import { getFormattedDate } from "../../util/date";
 const ExpensesItem = ({ title, date, price, id }) => {
   return (
     <TriggersForNavigation
-      screenName="EditExpense"
+      screenName="ManageExpenseScreen"
       style={styles.mainContainer}
       android_ripple_color={GlobalStyles.colors.primary900}
       expenseId={id}

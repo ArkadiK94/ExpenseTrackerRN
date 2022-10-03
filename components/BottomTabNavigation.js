@@ -26,7 +26,7 @@ const BottomTabNavigation = () => {
         headerRight: ({ tintColor }) => {
           return (
             <TriggersForNavigation
-              screenName="AddExpense"
+              screenName="ManageExpenseScreen"
               style={{ alignSelf: "flex-end", marginRight: 20 }}
             >
               <Ionicons name="add" size={24} color={tintColor} />

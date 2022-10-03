@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import BottomTabNavigation from "./components/BottomTabNavigation";
 import { GlobalStyles } from "./util/styles";
-import { AddExpenseScreen, EditExpenseScreen } from "./screens";
+import { ManageExpenseScreen } from "./screens";
 import ExpensesContextProvider from "./store/expenses-context";
 
 const Stack = createNativeStackNavigator();
@@ -33,20 +33,9 @@ export default function App() {
               component={BottomTabNavigation}
             />
             <Stack.Screen
-              name="AddExpense"
-              component={AddExpenseScreen}
+              name="ManageExpenseScreen"
+              component={ManageExpenseScreen}
               options={{
-                title: "Add Expense",
-                contentStyle: {
-                  backgroundColor: GlobalStyles.colors.primary900,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="EditExpense"
-              component={EditExpenseScreen}
-              options={{
-                title: "Edit Expense",
                 contentStyle: {
                   backgroundColor: GlobalStyles.colors.primary900,
                 },

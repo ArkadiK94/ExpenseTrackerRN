@@ -7,7 +7,7 @@ const TriggersForNavigation = ({
   onPress = null,
   style,
   expenseId,
-  android_ripple_color = "#fff",
+  android_ripple_color = null,
 }) => {
   const navigation = useNavigation();
   const pressHandler = () => {
@@ -25,7 +25,11 @@ const TriggersForNavigation = ({
       <Pressable
         onPress={pressHandler}
         android_ripple={{ color: android_ripple_color }}
-        style={[styles.innerContainer, style]}
+        style={({ pressed }) =>
+          pressed
+            ? [styles.innerContainer, styles.pressed, style]
+            : [styles.innerContainer, style]
+        }
       >
         {children}
       </Pressable>
@@ -41,5 +45,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 8,
   },
-  innerContainer: {},
+  pressed: {
+    opacity: 0.7,
+  },
 });
