@@ -1,7 +1,7 @@
 import { Pressable, View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const TriggersForNavigation = ({
+const Triggers = ({
   screenName,
   children,
   onPress = null,
@@ -13,12 +13,18 @@ const TriggersForNavigation = ({
   const pressHandler = () => {
     if (onPress) {
       onPress();
+      return;
     }
-    if (expenseId) {
-      navigation.navigate(screenName, { itemId: expenseId });
-    } else {
-      navigation.navigate(screenName);
+    if (screenName) {
+      if (expenseId) {
+        navigation.navigate(screenName, { itemId: expenseId });
+        return;
+      } else {
+        navigation.navigate(screenName);
+        return;
+      }
     }
+    navigation.goBack();
   };
   return (
     <View style={styles.outerContainer}>
@@ -37,7 +43,7 @@ const TriggersForNavigation = ({
   );
 };
 
-export default TriggersForNavigation;
+export default Triggers;
 
 const styles = StyleSheet.create({
   outerContainer: {

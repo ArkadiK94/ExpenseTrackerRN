@@ -1,12 +1,12 @@
 import { Text, View, StyleSheet } from "react-native";
 
-import TriggersForNavigation from "../UI/TriggersForNavigation";
+import Triggers from "../UI/Triggers";
 import { GlobalStyles } from "../../util/styles";
 import { getFormattedDate } from "../../util/date";
 
 const ExpensesItem = ({ title, date, price, id }) => {
   return (
-    <TriggersForNavigation
+    <Triggers
       screenName="ManageExpenseScreen"
       style={styles.mainContainer}
       android_ripple_color={GlobalStyles.colors.primary900}
@@ -19,7 +19,7 @@ const ExpensesItem = ({ title, date, price, id }) => {
       <View style={styles.priceContainer}>
         <Text style={styles.price}>{price}</Text>
       </View>
-    </TriggersForNavigation>
+    </Triggers>
   );
 };
 

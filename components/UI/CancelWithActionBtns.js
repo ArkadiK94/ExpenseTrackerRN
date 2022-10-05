@@ -1,26 +1,24 @@
 import { Text, View, StyleSheet } from "react-native";
 
 import { GlobalStyles } from "../../util/styles";
-import TriggersForNavigation from "./TriggersForNavigation";
+import Triggers from "./Triggers";
 
 const CancelWithActionBtns = ({ actionName, onPressAction }) => {
   return (
     <View style={styles.btnsContainer}>
-      <TriggersForNavigation
-        screenName="BottomTabs"
+      <Triggers
         style={styles.secondaryBtn}
         android_ripple_color={GlobalStyles.colors.primary400}
       >
         <Text style={styles.secondaryBtnText}>Cancel</Text>
-      </TriggersForNavigation>
-      <TriggersForNavigation
-        screenName="BottomTabs"
+      </Triggers>
+      <Triggers
         style={styles.mainBtn}
         onPress={onPressAction}
         android_ripple_color={GlobalStyles.colors.primary900}
       >
         <Text style={styles.mainBtnText}>{actionName}</Text>
-      </TriggersForNavigation>
+      </Triggers>
     </View>
   );
 };
@@ -35,6 +33,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
   },
   mainBtn: {
     backgroundColor: GlobalStyles.colors.primary400,

@@ -1,63 +1,81 @@
-import { View, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, ScrollView } from "react-native";
 import { useContext, useLayoutEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import CancelWithActionBtns from "../components/UI/CancelWithActionBtns";
 import { GlobalStyles } from "../util/styles";
-import TriggersForNavigation from "../components/UI/TriggersForNavigation";
+import Triggers from "../components/UI/Triggers";
 import { ExpensesContext } from "../store/expenses-context";
-import Expense from "../models/expense";
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
 const ManageExpenseScreen = ({ route, navigation }) => {
   const expensesCtx = useContext(ExpensesContext);
   const expenseId = route.params?.itemId;
   const isEditing = !!expenseId;
-  let renderScreenMode;
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditing ? "Edit Expense" : "Add Expense",
     });
   }, [navigation, isEditing]);
 
-  renderScreenMode = <CancelWithActionBtns actionName="Add" />;
-
+  let removeHeandler;
+  let editExpense = null;
   if (isEditing) {
-    const removeHeandler = () => {
+    removeHeandler = () => {
       expensesCtx.removeExpense(expenseId);
+      navigation.goBack();
     };
-    renderScreenMode = (
-      <>
-        <CancelWithActionBtns actionName="Update" />
-        <Text style={styles.underLine}></Text>
-        <TriggersForNavigation
-          screenName="BottomTabs"
-          style={styles.bin}
-          onPress={removeHeandler}
-        >
-          <Ionicons
-            name="trash-outline"
-            color={GlobalStyles.colors.secondery700}
-            size={35}
-          />
-        </TriggersForNavigation>
-      </>
+    editExpense = expensesCtx.expensesState.find(
+      (item) => item.id === expenseId
     );
   }
 
-  return <View style={styles.rootContainer}>{renderScreenMode}</View>;
+  const submitHandler = (expenseDataObj) => {
+    if (isEditing) {
+      expensesCtx.updateExpense(expenseDataObj, expenseId);
+    } else {
+      expensesCtx.addExpense(expenseDataObj);
+    }
+    navigation.goBack();
+  };
+
+  return (
+    <ScrollView style={styles.rootContainer}>
+      <ExpenseForm
+        onSubmit={submitHandler}
+        actionName={isEditing ? "Update" : "Add"}
+        editExpense={editExpense}
+      />
+      {isEditing && (
+        <>
+          <Text style={styles.underLine}></Text>
+          <Triggers
+            screenName="BottomTabs"
+            style={styles.bin}
+            onPress={removeHeandler}
+          >
+            <Ionicons
+              name="trash-outline"
+              color={GlobalStyles.colors.secondery700}
+              size={35}
+            />
+          </Triggers>
+        </>
+      )}
+    </ScrollView>
+  );
 };
 export default ManageExpenseScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    alignItems: "center",
   },
   underLine: {
     width: "90%",
     borderWidth: 1,
     height: 0,
     borderColor: GlobalStyles.colors.secondery200,
+    alignSelf: "center",
   },
   bin: {
     marginTop: 20,

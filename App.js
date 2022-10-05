@@ -9,7 +9,7 @@ import ExpensesContextProvider from "./store/expenses-context";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default App = () => {
   return (
     <>
       <StatusBar style="light" />
@@ -46,4 +46,4 @@ export default function App() {
       </ExpensesContextProvider>
     </>
   );
-}
+};

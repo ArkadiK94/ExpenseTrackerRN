@@ -1,4 +1,4 @@
-export function getFormattedDate(date) {
+const getFormattedDate = (date) => {
   let month = date.getMonth() + 1;
   let day = date.getDate();
   if (month < 10) {
@@ -8,10 +8,12 @@ export function getFormattedDate(date) {
     day = `0${day}`;
   }
   return `${date.getFullYear()}-${month}-${day}`;
-}
+};
 
-export function isNotBeforeXDays(date, days) {
+const isNotBeforeXDays = (date, days) => {
   const msOfDays = days * 24 * 60 * 60 * 1000;
   const msTillToday = new Date() - new Date(date);
-  return msTillToday < msOfDays;
-}
+  return msTillToday < msOfDays && msTillToday > 0;
+};
+
+export { getFormattedDate, isNotBeforeXDays };

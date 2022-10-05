@@ -3,7 +3,7 @@ import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 import { GlobalStyles } from "../util/styles";
 import { RecentExpensesScreen, AllExpensesScreen } from "../screens";
-import TriggersForNavigation from "./UI/TriggersForNavigation";
+import Triggers from "./UI/Triggers";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -25,12 +25,12 @@ const BottomTabNavigation = () => {
         headerTintColor: GlobalStyles.colors.primary100,
         headerRight: ({ tintColor }) => {
           return (
-            <TriggersForNavigation
+            <Triggers
               screenName="ManageExpenseScreen"
               style={{ alignSelf: "flex-end", marginRight: 20 }}
             >
               <Ionicons name="add" size={24} color={tintColor} />
-            </TriggersForNavigation>
+            </Triggers>
           );
         },
       }}
