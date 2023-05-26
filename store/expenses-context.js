@@ -1,12 +1,12 @@
-import { createContext, useReducer } from "react";
-
-import Expense from "../models/expense";
+import { createContext, useReducer, useState } from "react";
 
 export const ExpensesContext = createContext({
   expensesState: [],
-  addExpense: ({ title, price, date }) => {},
+  addExpense: ({ title, price, date, id }) => {},
   removeExpense: (id) => {},
   updateExpense: ({ title, price, date }, id) => {},
+  setExpenses: ([]) => {},
+  reqRootUrl: "",
 });
 const DUMMY_DATA = [];
 
@@ -22,6 +22,8 @@ const expensesReducer = (state, action) => {
       return [...newState, expenseAfterEditing];
     case "DELETE":
       return state.filter((item) => item.id !== action.payload);
+    case "SET":
+      return action.payload;
     default:
       return state;
   }
@@ -29,6 +31,9 @@ const expensesReducer = (state, action) => {
 
 const ExpensesContextProvider = ({ children }) => {
   const [expensesState, dispatch] = useReducer(expensesReducer, DUMMY_DATA);
+  const [reqRootUrl] = useState(
+    "https://expensetracker-d4ab8-default-rtdb.firebaseio.com/"
+  );
   const addExpense = (expenseData) => {
     dispatch({ type: "ADD", payload: expenseData });
   };
@@ -40,12 +45,16 @@ const ExpensesContextProvider = ({ children }) => {
   const updateExpense = (expenseData, id) => {
     dispatch({ type: "UPDATE", payload: { ...expenseData, id } });
   };
-
+  const setExpenses = (expeses) => {
+    dispatch({ type: "SET", payload: expeses });
+  };
   const value = {
     expensesState,
     addExpense,
     removeExpense,
     updateExpense,
+    reqRootUrl,
+    setExpenses,
   };
   return (
     <ExpensesContext.Provider value={value}>

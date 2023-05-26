@@ -6,6 +6,7 @@ import { GlobalStyles } from "../util/styles";
 import Triggers from "../components/UI/Triggers";
 import { ExpensesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import { storeExpense } from "../util/http";
 
 const ManageExpenseScreen = ({ route, navigation }) => {
   const expensesCtx = useContext(ExpensesContext);
@@ -29,11 +30,12 @@ const ManageExpenseScreen = ({ route, navigation }) => {
     );
   }
 
-  const submitHandler = (expenseDataObj) => {
+  const submitHandler = async (expenseDataObj) => {
     if (isEditing) {
       expensesCtx.updateExpense(expenseDataObj, expenseId);
     } else {
-      expensesCtx.addExpense(expenseDataObj);
+      const id = await storeExpense(expensesCtx.reqRootUrl, expenseDataObj);
+      expensesCtx.addExpense({ ...expenseDataObj, id: id });
     }
     navigation.goBack();
   };
