@@ -1,14 +1,16 @@
 import { StyleSheet, Text, ScrollView } from "react-native";
-import { useContext, useLayoutEffect } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 import { GlobalStyles } from "../util/styles";
 import Triggers from "../components/UI/Triggers";
 import { ExpensesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
-import { storeExpense } from "../util/http";
+import { storeExpense, updateExpense, deleteExpense } from "../util/http";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 
 const ManageExpenseScreen = ({ route, navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const expensesCtx = useContext(ExpensesContext);
   const expenseId = route.params?.itemId;
   const isEditing = !!expenseId;
@@ -21,8 +23,11 @@ const ManageExpenseScreen = ({ route, navigation }) => {
   let removeHeandler;
   let editExpense = null;
   if (isEditing) {
-    removeHeandler = () => {
+    removeHeandler = async () => {
+      setIsLoading(true);
       expensesCtx.removeExpense(expenseId);
+      await deleteExpense(expenseId);
+      setIsLoading(false);
       navigation.goBack();
     };
     editExpense = expensesCtx.expensesState.find(
@@ -31,15 +36,21 @@ const ManageExpenseScreen = ({ route, navigation }) => {
   }
 
   const submitHandler = async (expenseDataObj) => {
+    setIsLoading(true);
     if (isEditing) {
       expensesCtx.updateExpense(expenseDataObj, expenseId);
+      await updateExpense(expenseId, expenseDataObj);
     } else {
-      const id = await storeExpense(expensesCtx.reqRootUrl, expenseDataObj);
+      const id = await storeExpense(expenseDataObj);
       expensesCtx.addExpense({ ...expenseDataObj, id: id });
     }
+    setIsLoading(false);
     navigation.goBack();
   };
 
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
   return (
     <ScrollView style={styles.rootContainer}>
       <ExpenseForm

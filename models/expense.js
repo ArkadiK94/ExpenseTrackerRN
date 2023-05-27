@@ -1,6 +1,5 @@
 export default class Expense {
-  constructor(id, title, price, date) {
-    this.id = id;
+  constructor(title, price, date) {
     this.title = title;
     this.price = price;
     this.date = new Date(date);

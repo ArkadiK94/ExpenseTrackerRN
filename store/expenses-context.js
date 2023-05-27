@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useReducer } from "react";
 
 export const ExpensesContext = createContext({
   expensesState: [],
@@ -8,13 +8,11 @@ export const ExpensesContext = createContext({
   setExpenses: ([]) => {},
   reqRootUrl: "",
 });
-const DUMMY_DATA = [];
 
 const expensesReducer = (state, action) => {
   switch (action.type) {
     case "ADD":
-      const newExpense = action.payload;
-      return [...state, newExpense];
+      return [...state, action.payload];
     case "UPDATE":
       const editExpense = state.find((item) => item.id === action.payload.id);
       const expenseAfterEditing = { ...editExpense, ...action.payload };
@@ -30,10 +28,8 @@ const expensesReducer = (state, action) => {
 };
 
 const ExpensesContextProvider = ({ children }) => {
-  const [expensesState, dispatch] = useReducer(expensesReducer, DUMMY_DATA);
-  const [reqRootUrl] = useState(
-    "https://expensetracker-d4ab8-default-rtdb.firebaseio.com/"
-  );
+  const [expensesState, dispatch] = useReducer(expensesReducer, []);
+
   const addExpense = (expenseData) => {
     dispatch({ type: "ADD", payload: expenseData });
   };
@@ -53,7 +49,6 @@ const ExpensesContextProvider = ({ children }) => {
     addExpense,
     removeExpense,
     updateExpense,
-    reqRootUrl,
     setExpenses,
   };
   return (

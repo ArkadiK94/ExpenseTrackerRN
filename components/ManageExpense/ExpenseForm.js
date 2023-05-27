@@ -36,7 +36,6 @@ const ExpenseForm = ({ onSubmit, actionName, editExpense }) => {
 
   const submitHandler = () => {
     const enteredData = new Expense(
-      Math.random().toString(),
       input.title.value.trim(),
       +input.price.value,
       input.date.value

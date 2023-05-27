@@ -7,8 +7,8 @@ const ExpensesOutput = ({ title, data }) => {
   if (!data.length) {
     return <Text style={styles.message}>There Are No {title} Expenses</Text>;
   }
-  const recentExpensesInOrder = data.sort((a, b) => {
-    return new Date(b.date) - new Date(a.date);
+  const recentExpensesInOrder = data.sort((dateFirst, dateSecond) => {
+    return new Date(dateSecond.date) - new Date(dateFirst.date);
   });
   return (
     <View style={styles.rootContainer}>
