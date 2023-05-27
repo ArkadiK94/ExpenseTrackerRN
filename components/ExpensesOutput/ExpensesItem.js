@@ -9,7 +9,7 @@ const ExpensesItem = ({ title, date, price, id }) => {
     <Triggers
       screenName="ManageExpenseScreen"
       style={styles.mainContainer}
-      android_ripple_color={GlobalStyles.colors.primary900}
+      color={GlobalStyles.colors.primary900}
       expenseId={id}
     >
       <View>

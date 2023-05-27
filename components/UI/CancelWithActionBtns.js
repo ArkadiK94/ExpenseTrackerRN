@@ -8,14 +8,14 @@ const CancelWithActionBtns = ({ actionName, onPressAction }) => {
     <View style={styles.btnsContainer}>
       <Triggers
         style={styles.secondaryBtn}
-        android_ripple_color={GlobalStyles.colors.primary400}
+        color={GlobalStyles.colors.primary400}
       >
         <Text style={styles.secondaryBtnText}>Cancel</Text>
       </Triggers>
       <Triggers
         style={styles.mainBtn}
         onPress={onPressAction}
-        android_ripple_color={GlobalStyles.colors.primary900}
+        color={GlobalStyles.colors.primary900}
       >
         <Text style={styles.mainBtnText}>{actionName}</Text>
       </Triggers>

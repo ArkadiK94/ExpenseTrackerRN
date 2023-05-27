@@ -8,9 +8,12 @@ import { ExpensesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import { storeExpense, updateExpense, deleteExpense } from "../util/http";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
 
 const ManageExpenseScreen = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
   const expensesCtx = useContext(ExpensesContext);
   const expenseId = route.params?.itemId;
   const isEditing = !!expenseId;
@@ -25,10 +28,13 @@ const ManageExpenseScreen = ({ route, navigation }) => {
   if (isEditing) {
     removeHeandler = async () => {
       setIsLoading(true);
-      expensesCtx.removeExpense(expenseId);
-      await deleteExpense(expenseId);
-      setIsLoading(false);
-      navigation.goBack();
+      try {
+        await deleteExpense(expenseId);
+        expensesCtx.removeExpense(expenseId);
+        navigation.goBack();
+      } catch (err) {
+        setError(err.message);
+      }
     };
     editExpense = expensesCtx.expensesState.find(
       (item) => item.id === expenseId
@@ -37,17 +43,26 @@ const ManageExpenseScreen = ({ route, navigation }) => {
 
   const submitHandler = async (expenseDataObj) => {
     setIsLoading(true);
-    if (isEditing) {
-      expensesCtx.updateExpense(expenseDataObj, expenseId);
-      await updateExpense(expenseId, expenseDataObj);
-    } else {
-      const id = await storeExpense(expenseDataObj);
-      expensesCtx.addExpense({ ...expenseDataObj, id: id });
+    try {
+      if (isEditing) {
+        await updateExpense(expenseId, expenseDataObj);
+        expensesCtx.updateExpense(expenseDataObj, expenseId);
+      } else {
+        const id = await storeExpense(expenseDataObj);
+        expensesCtx.addExpense({ ...expenseDataObj, id: id });
+      }
+      navigation.goBack();
+    } catch (err) {
+      setError(err.message);
     }
-    setIsLoading(false);
-    navigation.goBack();
   };
-
+  function errorHandler() {
+    setError(null);
+    navigation.goBack();
+  }
+  if (error) {
+    return <ErrorOverlay message={error} onConfirm={errorHandler} />;
+  }
   if (isLoading) {
     return <LoadingOverlay />;
   }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_URL = "https://expensetracker-d4ab8-default-rtdb.firebaseio.com/";
+const BACKEND_URL = "https://expensetracker-d4ab8-default-rtdb.firebaseio.com";
 
 export async function storeExpense(expenseData) {
   const response = await axios.post(
@@ -14,6 +14,9 @@ export async function storeExpense(expenseData) {
 export async function fetchExpense() {
   const response = await axios.get(`${BACKEND_URL}/expenses.json`);
   const expenses = [];
+  if (!response.data) {
+    return expenses;
+  }
   for (const [expenseId, expenseData] of Object.entries(response.data)) {
     const expenseObj = {
       id: expenseId,

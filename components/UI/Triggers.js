@@ -7,7 +7,8 @@ const Triggers = ({
   onPress = null,
   style,
   expenseId,
-  android_ripple_color = null,
+  color = null,
+  needToNavigate = true,
 }) => {
   const navigation = useNavigation();
   const pressHandler = () => {
@@ -24,13 +25,13 @@ const Triggers = ({
         return;
       }
     }
-    navigation.goBack();
+    if (needToNavigate) navigation.goBack();
   };
   return (
     <View style={styles.outerContainer}>
       <Pressable
         onPress={pressHandler}
-        android_ripple={{ color: android_ripple_color }}
+        android_ripple={{ color: color }}
         style={({ pressed }) =>
           pressed
             ? [styles.innerContainer, styles.pressed, style]
