@@ -3,9 +3,9 @@ import { useState } from "react";
 
 import Expense from "../../models/expense";
 import { getFormattedDate } from "../../util/date";
-import CancelWithActionBtns from "../UI/CancelWithActionBtns";
 import Input from "./Input";
 import { GlobalStyles } from "../../util/styles";
+import Button from "../UI/Button";
 
 const ExpenseForm = ({ onSubmit, actionName, editExpense }) => {
   const [input, setInput] = useState({
@@ -105,10 +105,21 @@ const ExpenseForm = ({ onSubmit, actionName, editExpense }) => {
           Invalid input values - please check your entered data!
         </Text>
       )}
-      <CancelWithActionBtns
-        actionName={actionName}
-        onPressAction={submitHandler}
-      />
+      <View style={styles.btnsContainer}>
+        <Button
+          title="Cancel"
+          btnStyle={styles.secondaryBtn}
+          color={GlobalStyles.colors.primary400}
+          textStyle={styles.secondaryBtnText}
+        />
+        <Button
+          title={actionName}
+          btnStyle={styles.mainBtn}
+          color={GlobalStyles.colors.primary900}
+          textStyle={styles.mainBtnText}
+          onPressAction={submitHandler}
+        />
+      </View>
     </View>
   );
 };
@@ -125,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     fontWeight: "600",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   inputsInARow: {
     flexDirection: "row",
@@ -137,5 +148,37 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginTop: 10,
+  },
+  btnsContainer: {
+    width: "40%",
+    flexDirection: "row",
+    paddingTop: 25,
+    paddingBottom: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+  mainBtn: {
+    backgroundColor: GlobalStyles.colors.primary400,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+    width: "100%",
+  },
+  mainBtnText: {
+    color: GlobalStyles.colors.primary200,
+    fontSize: 16,
+  },
+  secondaryBtn: {
+    backgroundColor: GlobalStyles.colors.primary900,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+  },
+  secondaryBtnText: {
+    color: GlobalStyles.colors.secondery200,
+    fontSize: 16,
   },
 });

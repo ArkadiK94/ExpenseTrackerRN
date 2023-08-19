@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { GlobalStyles } from "../util/styles";
 import Triggers from "../components/UI/Triggers";
 import { ExpensesContext } from "../store/expenses-context";
-import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import ExpenseForm from "../components/Forms/ExpenseForm";
 import { storeExpense, updateExpense, deleteExpense } from "../util/http";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import ErrorOverlay from "../components/UI/ErrorOverlay";

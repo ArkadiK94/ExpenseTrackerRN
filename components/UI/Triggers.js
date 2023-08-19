@@ -8,7 +8,6 @@ const Triggers = ({
   style,
   expenseId,
   color = null,
-  needToNavigate = true,
 }) => {
   const navigation = useNavigation();
   const pressHandler = () => {
@@ -25,7 +24,7 @@ const Triggers = ({
         return;
       }
     }
-    if (needToNavigate) navigation.goBack();
+    navigation.goBack();
   };
   return (
     <View style={styles.outerContainer}>
