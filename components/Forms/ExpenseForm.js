@@ -47,15 +47,15 @@ const ExpenseForm = ({ onSubmit, actionName, editExpense }) => {
       setInput((prevInputs) => {
         return {
           price: {
-            value: prevInputs.price.value,
+            ...prevInputs.price,
             isValid: !priceInvalid,
           },
           date: {
-            value: prevInputs.date.value,
+            ...prevInputs.date,
             isValid: !dateInvalid,
           },
           title: {
-            value: prevInputs.title.value,
+            ...prevInputs.title,
             isValid: !titleInvalid,
           },
         };

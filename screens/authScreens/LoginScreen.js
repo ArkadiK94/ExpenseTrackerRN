@@ -1,6 +1,9 @@
 import AuthForm from "../../components/Forms/AuthForm";
 
 const LoginScreen = () => {
+  const submitHandler = (data) => {
+    console.log(data);
+  };
   return (
     <AuthForm
       btnMainText="Log In"
@@ -8,6 +11,7 @@ const LoginScreen = () => {
       btnSecondaryFunc={() => {
         return "Signup";
       }}
+      onSubmit={submitHandler}
     />
   );
 };
