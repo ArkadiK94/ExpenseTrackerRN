@@ -1,9 +1,22 @@
+import { useContext, useState } from "react";
+
 import AuthForm from "../../components/Forms/AuthForm";
+import { createNewUser } from "../../util/auth";
+import { AuthContext } from "../../store/auth-context";
+import LoadingOverlay from "../../components/UI/LoadingOverlay";
 
 const SignupScreen = () => {
-  const submitHandler = (data) => {
-    console.log(data);
+  const [loading, setLoading] = useState(false);
+  const authCtx = useContext(AuthContext);
+
+  const submitHandler = async (data) => {
+    setLoading(true);
+    const token = await createNewUser(data);
+    authCtx.authenticate(token);
+    setLoading(false);
   };
+  if (loading) return <LoadingOverlay />;
+
   return (
     <AuthForm
       signupMode

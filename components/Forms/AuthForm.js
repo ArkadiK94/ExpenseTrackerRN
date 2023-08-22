@@ -87,10 +87,7 @@ const AuthForm = ({
       });
       return;
     }
-    const enteredData = { email, password };
-    if (signupMode) {
-      Object.assign(enteredData, { confirmEmail, confirmPassword });
-    }
+    const enteredData = { email: email.value, password: password.value };
     onSubmit(enteredData);
   };
 

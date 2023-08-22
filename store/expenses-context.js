@@ -29,7 +29,6 @@ const expensesReducer = (state, action) => {
 
 const ExpensesContextProvider = ({ children }) => {
   const [expensesState, dispatch] = useReducer(expensesReducer, []);
-
   const addExpense = (expenseData) => {
     dispatch({ type: "ADD", payload: expenseData });
   };
@@ -44,6 +43,7 @@ const ExpensesContextProvider = ({ children }) => {
   const setExpenses = (expeses) => {
     dispatch({ type: "SET", payload: expeses });
   };
+
   const value = {
     expensesState,
     addExpense,

@@ -1,13 +1,20 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { View } from "react-native";
+import { useContext } from "react";
 
 import { GlobalStyles } from "../util/styles";
 import { RecentExpensesScreen, AllExpensesScreen } from "../screens";
 import Triggers from "./UI/Triggers";
+import { AuthContext } from "../store/auth-context";
 
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
+  const authCtx = useContext(AuthContext);
+  const logoutPressHandler = () => {
+    authCtx.logout();
+  };
   return (
     <BottomTab.Navigator
       sceneContainerStyle={{ backgroundColor: GlobalStyles.colors.primary700 }}
@@ -25,12 +32,21 @@ const BottomTabNavigation = () => {
         headerTintColor: GlobalStyles.colors.primary100,
         headerRight: ({ tintColor }) => {
           return (
-            <Triggers
-              screenName="ManageExpenseScreen"
-              style={{ alignSelf: "flex-end", marginRight: 20 }}
+            <View
+              style={{
+                marginRight: 40,
+                width: 50,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
             >
-              <Ionicons name="add" size={24} color={tintColor} />
-            </Triggers>
+              <Triggers screenName="ManageExpenseScreen">
+                <Ionicons name="add" size={24} color={tintColor} />
+              </Triggers>
+              <Triggers onPress={logoutPressHandler}>
+                <Ionicons name="exit" size={24} color={tintColor} />
+              </Triggers>
+            </View>
           );
         },
       }}
