@@ -164,8 +164,6 @@ const styles = StyleSheet.create({
   mainBtn: {
     backgroundColor: GlobalStyles.colors.primary400,
     borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
     height: 40,
     width: "100%",
   },
@@ -176,8 +174,6 @@ const styles = StyleSheet.create({
   secondaryBtn: {
     backgroundColor: GlobalStyles.colors.primary900,
     borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
     height: 40,
   },
   secondaryBtnText: {

@@ -3,6 +3,7 @@ import AllExpensesScreen from "./AllExpensesScreen";
 import RecentExpensesScreen from "./RecentExpensesScreen";
 import LoginScreen from "./authScreens/LoginScreen";
 import SignupScreen from "./authScreens/SignupScreen";
+import ScheduleNotification from "./ScheduleNotification";
 
 export {
   ManageExpenseScreen,
@@ -10,4 +11,5 @@ export {
   RecentExpensesScreen,
   LoginScreen,
   SignupScreen,
+  ScheduleNotification,
 };

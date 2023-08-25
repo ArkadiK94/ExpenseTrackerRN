@@ -6,7 +6,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import BottomTabNavigation from "./components/BottomTabNavigation";
 import { GlobalStyles } from "./util/styles";
-import { ManageExpenseScreen, LoginScreen, SignupScreen } from "./screens";
+import {
+  ManageExpenseScreen,
+  LoginScreen,
+  SignupScreen,
+  ScheduleNotification,
+} from "./screens";
 import ExpensesContextProvider from "./store/expenses-context";
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import LoadingOverlay from "./components/UI/LoadingOverlay";
@@ -35,6 +40,16 @@ const AuthenticatedUserStack = () => {
         name="ManageExpenseScreen"
         component={ManageExpenseScreen}
         options={{
+          contentStyle: {
+            backgroundColor: GlobalStyles.colors.primary900,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ScheduleNotification"
+        component={ScheduleNotification}
+        options={{
+          title: "Schedule Notification",
           contentStyle: {
             backgroundColor: GlobalStyles.colors.primary900,
           },

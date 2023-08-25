@@ -34,7 +34,7 @@ const BottomTabNavigation = () => {
           return (
             <View
               style={{
-                marginRight: 40,
+                marginRight: 90,
                 width: 50,
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -42,6 +42,9 @@ const BottomTabNavigation = () => {
             >
               <Triggers screenName="ManageExpenseScreen">
                 <Ionicons name="add" size={24} color={tintColor} />
+              </Triggers>
+              <Triggers screenName="ScheduleNotification">
+                <Ionicons name="notifications" size={24} color={tintColor} />
               </Triggers>
               <Triggers onPress={logoutPressHandler}>
                 <Ionicons name="exit" size={24} color={tintColor} />

@@ -12,7 +12,6 @@ export async function storeExpense(expenseData, token) {
 }
 
 export async function fetchExpense(token, userEmail) {
-  console.log(userEmail);
   const response = await axios.get(
     `${BACKEND_URL}/expenses.json?auth=${token}&orderBy="userEmail"&equalTo="${userEmail}"`
   );

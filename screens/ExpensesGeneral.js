@@ -23,7 +23,6 @@ const ExpensesGeneral = ({ title, days }) => {
         );
         expensesCtx.setExpenses(expensesData);
       } catch (err) {
-        console.info(err);
         setError(err.message);
       }
       setIsLoading(false);
