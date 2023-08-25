@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { GlobalStyles } from "../util/styles";
 import Triggers from "../components/UI/Triggers";
 import { ExpensesContext } from "../store/expenses-context";
+import { AuthContext } from "../store/auth-context";
 import ExpenseForm from "../components/Forms/ExpenseForm";
 import { storeExpense, updateExpense, deleteExpense } from "../util/http";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
@@ -15,6 +16,7 @@ const ManageExpenseScreen = ({ route, navigation }) => {
   const [error, setError] = useState();
 
   const expensesCtx = useContext(ExpensesContext);
+  const authCtx = useContext(AuthContext);
   const expenseId = route.params?.itemId;
   const isEditing = !!expenseId;
   useLayoutEffect(() => {
@@ -29,7 +31,7 @@ const ManageExpenseScreen = ({ route, navigation }) => {
     removeHeandler = async () => {
       setIsLoading(true);
       try {
-        await deleteExpense(expenseId);
+        await deleteExpense(expenseId, authCtx.token);
         expensesCtx.removeExpense(expenseId);
         navigation.goBack();
       } catch (err) {
@@ -45,10 +47,10 @@ const ManageExpenseScreen = ({ route, navigation }) => {
     setIsLoading(true);
     try {
       if (isEditing) {
-        await updateExpense(expenseId, expenseDataObj);
+        await updateExpense(expenseId, expenseDataObj, authCtx.token);
         expensesCtx.updateExpense(expenseDataObj, expenseId);
       } else {
-        const id = await storeExpense(expenseDataObj);
+        const id = await storeExpense(expenseDataObj, authCtx.token);
         expensesCtx.addExpense({ ...expenseDataObj, id: id });
       }
       navigation.goBack();

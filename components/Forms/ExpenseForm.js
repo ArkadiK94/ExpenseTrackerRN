@@ -1,13 +1,15 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import Expense from "../../models/expense";
 import { getFormattedDate } from "../../util/date";
 import Input from "./Input";
 import { GlobalStyles } from "../../util/styles";
 import Button from "../UI/Button";
+import { AuthContext } from "../../store/auth-context";
 
 const ExpenseForm = ({ onSubmit, actionName, editExpense }) => {
+  const authCtx = useContext(AuthContext);
   const [input, setInput] = useState({
     price: {
       value: editExpense ? editExpense.price.toString() : "",
@@ -38,7 +40,8 @@ const ExpenseForm = ({ onSubmit, actionName, editExpense }) => {
     const enteredData = new Expense(
       input.title.value.trim(),
       +input.price.value,
-      input.date.value
+      input.date.value,
+      authCtx.userEmail
     );
     const dateInvalid = enteredData.date.toString() === "Invalid Date";
     const priceInvalid = isNaN(enteredData.price) || enteredData.price <= 0;

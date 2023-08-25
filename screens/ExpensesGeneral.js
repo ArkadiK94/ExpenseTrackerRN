@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 import ExpensesOutput from "../components/ExpensesOutput";
 import { ExpensesContext } from "../store/expenses-context";
+import { AuthContext } from "../store/auth-context";
 import { fetchExpense } from "../util/http";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import ErrorOverlay from "../components/UI/ErrorOverlay";
@@ -11,13 +12,18 @@ const ExpensesGeneral = ({ title, days }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const expensesCtx = useContext(ExpensesContext);
+  const authCtx = useContext(AuthContext);
   useEffect(() => {
     async function getExpenses() {
       setIsLoading(true);
       try {
-        const expensesData = await fetchExpense();
+        const expensesData = await fetchExpense(
+          authCtx.token,
+          authCtx.userEmail
+        );
         expensesCtx.setExpenses(expensesData);
       } catch (err) {
+        console.info(err);
         setError(err.message);
       }
       setIsLoading(false);
@@ -26,7 +32,7 @@ const ExpensesGeneral = ({ title, days }) => {
   }, []);
   async function errorHandler() {
     try {
-      const expensesData = await fetchExpense();
+      const expensesData = await fetchExpense(authCtx.token, authCtx.userEmail);
       expensesCtx.setExpenses(expensesData);
       setError(null);
     } catch (error) {

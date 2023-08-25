@@ -67,8 +67,9 @@ const Root = () => {
     const getToken = async () => {
       setLoading(true);
       const userToken = await AsyncStorage.getItem("token");
+      const userEmail = await AsyncStorage.getItem("userEmail");
       if (userToken) {
-        authCtx.authenticate(userToken);
+        authCtx.authenticate(userToken, userEmail);
       }
       setLoading(false);
     };

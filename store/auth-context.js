@@ -4,25 +4,33 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext({
   token: "",
   isAuthenticated: false,
-  authenticate: (token) => {},
+  authenticate: (token, email) => {},
   logout: () => {},
+  userEmail: "",
 });
 
 const AuthContextProvider = ({ children }) => {
-  const [token, setToken] = useState("");
-  const authenticate = async (userToken) => {
-    setToken(userToken);
+  const [userInfo, setUserInfo] = useState({
+    token: "",
+    userEmail: "",
+  });
+
+  const authenticate = async (userToken, userEmail) => {
+    setUserInfo({ token: userToken, userEmail: userEmail });
     await AsyncStorage.setItem("token", userToken);
+    await AsyncStorage.setItem("userEmail", userEmail);
   };
   const logout = async () => {
-    setToken(null);
+    setUserInfo({ token: null, userEmail: null });
     await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("userEmail");
   };
   const value = {
-    token,
-    isAuthenticated: !!token,
+    token: userInfo.token,
+    isAuthenticated: !!userInfo.token,
     authenticate,
     logout,
+    userEmail: userInfo.userEmail,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

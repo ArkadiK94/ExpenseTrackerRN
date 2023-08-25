@@ -2,8 +2,6 @@ import { FirebaseWebAPIKey } from "react-native-dotenv";
 import axios from "axios";
 import { Alert } from "react-native";
 
-const DB_URL = "https://expensetracker-b15b2-default-rtdb.firebaseio.com";
-
 const authenticate = async ({ email, password }, mode) => {
   try {
     const response = await axios.post(
@@ -17,20 +15,8 @@ const authenticate = async ({ email, password }, mode) => {
   }
 };
 
-const addUserToDB = async (email, token) => {
-  try {
-    const response = await axios.post(`${DB_URL}/users.json?auth=${token}`, {
-      email,
-    });
-    console.log(response);
-  } catch (err) {
-    Alert.alert("Error", err.message);
-  }
-};
 export const createNewUser = async (userData) => {
-  const token = await authenticate(userData, "signUp");
-  await addUserToDB(userData.email, token);
-  return token;
+  return authenticate(userData, "signUp");
 };
 
 export const loginUser = (userData) => {

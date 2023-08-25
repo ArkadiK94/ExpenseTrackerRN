@@ -12,7 +12,7 @@ const LoginScreen = () => {
   const submitHandler = async (data) => {
     setLoading(true);
     const token = await loginUser(data);
-    authCtx.authenticate(token);
+    authCtx.authenticate(token, data.email);
     setLoading(false);
   };
   if (loading) return <LoadingOverlay />;
