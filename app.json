@@ -1,33 +1,38 @@
 {
-  "expo": {
-    "name": "ExpenseTracker",
-    "slug": "ExpenseTracker",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+  "name": "Expense Tracker",
+  "slug": "ExpenseTracker",
+  "version": "1.0.2",
+  "orientation": "portrait",
+  "icon": "./assets/icon.png",
+  "userInterfaceStyle": "light",
+  "splash": {
+    "image": "./assets/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  },
+  "updates": {
+    "fallbackToCacheTimeout": 0
+  },
+  "assetBundlePatterns": ["**/*"],
+  "ios": {
+    "supportsTablet": true
+  },
+  "android": {
+    "versionCode": 1,
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/adaptive-icon.png",
+      "backgroundColor": "#FFFFFF"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "package": "io.github.arkadik94.ExpenseTracker"
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
+  },
+  "extra": {
+    "eas": {
+      "projectId": "9d7d05a7-f1ba-4db1-8e71-0bfdf601f835"
     }
-  }
+  },
+  "sdkVersion": "47.0.0",
+  "platforms": ["ios", "android", "web"]
 }

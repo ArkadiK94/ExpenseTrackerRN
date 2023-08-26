@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 4.1.2"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "env": {
+        "FirebaseWebAPIKey": "AIzaSyBAmEcFyS_PbwR3Cw0yC3jmZa_O7R9xmIc"
+      },
+      "distribution": "internal"
+    },
+    "production": {
+      "env": {
+        "FirebaseWebAPIKey": "AIzaSyBAmEcFyS_PbwR3Cw0yC3jmZa_O7R9xmIc"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
