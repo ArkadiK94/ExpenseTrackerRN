@@ -4,9 +4,12 @@ import DatePicker from "react-native-date-picker";
 
 import { GlobalStyles } from "../../util/styles";
 import Button from "../UI/Button";
+import { getFormattedDate } from "../../util/date";
 
 const NotificationForm = ({ actionName }) => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(
+    new Date(`${getFormattedDate(new Date())}T00:00:00`)
+  );
   const changeDateHandler = (newDate) => {
     setDate(newDate);
   };
@@ -16,11 +19,14 @@ const NotificationForm = ({ actionName }) => {
   return (
     <View style={styles.formContainer}>
       <Text style={styles.title}>Schedule Notification</Text>
+      <Text style={styles.subTitle}>Pick Time</Text>
       <DatePicker
         date={date}
         onDateChange={changeDateHandler}
-        mdoe="time"
+        mode="time"
         textColor={GlobalStyles.colors.primary200}
+        fadeToColor={GlobalStyles.colors.primary200}
+        timeZoneOffsetInMinutes={0}
       />
       <View style={styles.btnsContainer}>
         <Button
@@ -47,6 +53,7 @@ const styles = StyleSheet.create({
   formContainer: {
     marginTop: 80,
     paddingHorizontal: 20,
+    alignItems: "center",
   },
   title: {
     color: "#fff",
@@ -54,6 +61,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "600",
     marginBottom: 30,
+  },
+  subTitle: {
+    color: "#fff",
+    fontSize: 18,
+    textAlign: "center",
+    fontWeight: "400",
+    marginBottom: 10,
   },
   error: {
     color: GlobalStyles.colors.secondery700,

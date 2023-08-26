@@ -4,6 +4,9 @@
   },
   "build": {
     "development": {
+      "env": {
+        "FirebaseWebAPIKey": "AIzaSyBAmEcFyS_PbwR3Cw0yC3jmZa_O7R9xmIc"
+      },
       "developmentClient": true,
       "distribution": "internal"
     },
