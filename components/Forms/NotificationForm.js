@@ -1,15 +1,27 @@
+import { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import DatePicker from "react-native-date-picker";
 
 import { GlobalStyles } from "../../util/styles";
 import Button from "../UI/Button";
 
 const NotificationForm = ({ actionName }) => {
+  const [date, setDate] = useState(new Date());
+  const changeDateHandler = (newDate) => {
+    setDate(newDate);
+  };
   const submitHandler = () => {
-    console.log(timeInput);
+    console.log(date);
   };
   return (
     <View style={styles.formContainer}>
       <Text style={styles.title}>Schedule Notification</Text>
+      <DatePicker
+        date={date}
+        onDateChange={changeDateHandler}
+        mdoe="time"
+        textColor={GlobalStyles.colors.primary200}
+      />
       <View style={styles.btnsContainer}>
         <Button
           title="Cancel"
