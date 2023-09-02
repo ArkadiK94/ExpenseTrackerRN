@@ -94,6 +94,8 @@ const AuthForm = ({
   return (
     <ScrollView>
       <View style={styles.formContainer}>
+        <Text style={styles.title}>Expense Tracker</Text>
+        <Text style={styles.subTitle}>{signupMode ? "Signup" : "Login"}</Text>
         <View style={styles.inputsContainer}>
           <Input
             label="Email Address"
@@ -168,6 +170,20 @@ const AuthForm = ({
 export default AuthForm;
 
 const styles = StyleSheet.create({
+  title: {
+    color: "#fff",
+    fontSize: 24,
+    textAlign: "center",
+    fontWeight: "600",
+    marginBottom: 5,
+  },
+  subTitle: {
+    color: "#fff",
+    fontSize: 18,
+    textAlign: "center",
+    fontWeight: "400",
+    marginBottom: 15,
+  },
   formContainer: {
     marginHorizontal: 30,
     marginTop: 60,

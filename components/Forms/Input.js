@@ -2,7 +2,7 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 
 import { GlobalStyles } from "../../util/styles";
 
-const Input = ({ label, textInputConfig, isValid, labelStyle }) => {
+const Input = ({ label, textInputConfig, isValid, labelStyle, inputStyle }) => {
   const multilineInput = textInputConfig && textInputConfig.multiline;
   const textInputStyles = [styles.textInput];
   if (multilineInput) {
@@ -22,7 +22,10 @@ const Input = ({ label, textInputConfig, isValid, labelStyle }) => {
       >
         {label}
       </Text>
-      <TextInput {...textInputConfig} style={textInputStyles}></TextInput>
+      <TextInput
+        {...textInputConfig}
+        style={[textInputStyles, inputStyle]}
+      ></TextInput>
     </View>
   );
 };

@@ -1,49 +1,127 @@
 import { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import DatePicker from "react-native-date-picker";
 
 import { GlobalStyles } from "../../util/styles";
 import Button from "../UI/Button";
 import { getFormattedDate } from "../../util/date";
+import Input from "./Input";
 
-const NotificationForm = ({ actionName }) => {
+const NotificationForm = ({ actionName, onSubmit }) => {
   const [date, setDate] = useState(
     new Date(`${getFormattedDate(new Date())}T00:00:00`)
   );
+  const [days, setDays] = useState("7");
+  const [notifWeekDays, setNotifWeekDays] = useState({
+    0: ["Sunday", 0],
+    1: ["Monday", 0],
+    2: ["Tuesday", 0],
+    3: ["Wednesday", 0],
+    4: ["Thursday", 0],
+    5: ["Friday", 0],
+    6: ["Saturday", 0],
+  });
   const changeDateHandler = (newDate) => {
     setDate(newDate);
   };
+  const changeDaysHandler = (newDays) => {
+    setDays(newDays);
+  };
+  const pickDayHandler = (keyObj) => {
+    setNotifWeekDays((prevNotifWeekDays) => {
+      return {
+        ...prevNotifWeekDays,
+        [keyObj]: [
+          prevNotifWeekDays[keyObj][0],
+          +!prevNotifWeekDays[keyObj][1],
+        ],
+      };
+    });
+  };
   const submitHandler = () => {
-    console.log(date);
+    const weekDays = [];
+    for (let valueObj of Object.values(notifWeekDays)) {
+      if (valueObj[1]) {
+        weekDays.push(valueObj[0]);
+      }
+    }
+    onSubmit({ date, days, weekDays });
   };
   return (
-    <View style={styles.formContainer}>
-      <Text style={styles.title}>Schedule Notification</Text>
-      <Text style={styles.subTitle}>Pick Time</Text>
-      <DatePicker
-        date={date}
-        onDateChange={changeDateHandler}
-        mode="time"
-        textColor={GlobalStyles.colors.primary200}
-        fadeToColor={GlobalStyles.colors.primary200}
-        timeZoneOffsetInMinutes={0}
-      />
-      <View style={styles.btnsContainer}>
-        <Button
-          title="Cancel"
-          btnStyle={styles.secondaryBtn}
-          color={GlobalStyles.colors.primary400}
-          textStyle={styles.secondaryBtnText}
-        />
-        <Button
-          title={actionName}
-          btnStyle={styles.mainBtn}
-          color={GlobalStyles.colors.primary900}
-          textStyle={styles.mainBtnText}
-          onPressAction={submitHandler}
-        />
+    <ScrollView>
+      <View style={styles.formContainer}>
+        <Text style={styles.title}>Schedule Notification</Text>
+        <View style={styles.setDaysContainer}>
+          <Text style={styles.subTitle}>Track Last</Text>
+          <Input
+            textInputConfig={{
+              maxLength: 1,
+              keyboardType: "number-pad",
+              onChangeText: changeDaysHandler,
+              value: days,
+              textAlign: "center",
+              width: 50,
+            }}
+            isValid={true}
+          />
+          <Text style={styles.subTitle}>Days</Text>
+        </View>
+        <Text style={styles.subTitle}>Pick Time And Week Days</Text>
+        <View style={styles.setTimeAndWeedDaysContainer}>
+          <DatePicker
+            date={date}
+            onDateChange={changeDateHandler}
+            mode="time"
+            textColor={GlobalStyles.colors.primary200}
+            fadeToColor={GlobalStyles.colors.primary200}
+            timeZoneOffsetInMinutes={0}
+          />
+          <View style={styles.weekDayBubbleContainer}>
+            {Object.entries(notifWeekDays).map(([keyObj, valueObj]) => {
+              return (
+                <Pressable
+                  key={keyObj}
+                  onPress={pickDayHandler.bind(this, keyObj)}
+                >
+                  <View style={styles.bubbleDay}>
+                    <Input
+                      textInputConfig={{
+                        maxLength: 3,
+                        editable: false,
+                        value: valueObj[0],
+                        textAlign: "center",
+                        height: "100%",
+                        width: "100%",
+                      }}
+                      inputStyle={[
+                        styles.inputStyle,
+                        valueObj[1] && styles.selectedDay,
+                      ]}
+                      isValid={true}
+                    />
+                  </View>
+                </Pressable>
+              );
+            })}
+          </View>
+        </View>
+        <View style={styles.btnsContainer}>
+          <Button
+            title="Cancel"
+            btnStyle={styles.secondaryBtn}
+            color={GlobalStyles.colors.primary400}
+            textStyle={styles.secondaryBtnText}
+          />
+          <Button
+            title={actionName}
+            btnStyle={styles.mainBtn}
+            color={GlobalStyles.colors.primary900}
+            textStyle={styles.mainBtnText}
+            onPressAction={submitHandler}
+          />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -55,12 +133,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: "center",
   },
+  setDaysContainer: {
+    width: "50%",
+    flexDirection: "row",
+    alignItems: "flex-end",
+    marginBottom: 20,
+  },
+  setWeekDaysContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+
+  setTimeAndWeedDaysContainer: {
+    flex: 1,
+    alignItems: "center",
+    marginBottom: 30,
+  },
   title: {
     color: "#fff",
     fontSize: 24,
     textAlign: "center",
     fontWeight: "600",
-    marginBottom: 30,
   },
   subTitle: {
     color: "#fff",
@@ -102,5 +196,24 @@ const styles = StyleSheet.create({
   secondaryBtnText: {
     color: GlobalStyles.colors.secondery200,
     fontSize: 16,
+  },
+  weekDayBubbleContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+  },
+  inputStyle: {
+    fontSize: 10,
+    borderRadius: 100,
+  },
+  bubbleDay: {
+    height: 50,
+    width: 50,
+  },
+  selectedDay: {
+    borderColor: GlobalStyles.colors.primary100,
+    borderWidth: 3,
+    borderRadius: 100,
+    elevation: 5,
   },
 });
