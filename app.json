@@ -23,8 +23,7 @@
       "foregroundImage": "./assets/adaptive-icon.png",
       "backgroundColor": "#FFFFFF"
     },
-    "package": "io.github.arkadik94.ExpenseTracker",
-    "googleServicesFile": "./google-services.json"
+    "package": "io.github.arkadik94.ExpenseTracker"
   },
   "web": {
     "favicon": "./assets/favicon.png"
@@ -35,5 +34,15 @@
     }
   },
   "sdkVersion": "47.0.0",
-  "platforms": ["ios", "android", "web"]
+  "platforms": ["ios", "android", "web"],
+
+  "plugins": [
+    [
+      "expo-notifications",
+      {
+        "icon": "./local/assets/icon.png",
+        "color": "#ffffff"
+      }
+    ]
+  ]
 }

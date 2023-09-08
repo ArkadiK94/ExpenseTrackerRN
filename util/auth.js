@@ -1,18 +1,13 @@
 import { FirebaseWebAPIKey } from "react-native-dotenv";
 import axios from "axios";
-import { Alert } from "react-native";
 
 const authenticate = async ({ email, password }, mode) => {
-  try {
-    const response = await axios.post(
-      `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${FirebaseWebAPIKey}`,
-      { email, password, returnSecureToken: true }
-    );
-    const authToken = response.data.idToken;
-    return authToken;
-  } catch (err) {
-    Alert.alert("Error", err.message);
-  }
+  const response = await axios.post(
+    `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${FirebaseWebAPIKey}`,
+    { email, password, returnSecureToken: true }
+  );
+  const authToken = response.data.idToken;
+  return authToken;
 };
 
 export const createNewUser = async (userData) => {
