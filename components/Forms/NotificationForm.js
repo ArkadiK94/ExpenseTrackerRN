@@ -25,6 +25,7 @@ const NotificationForm = ({ actionName, onSubmit }) => {
     setDate(newDate);
   };
   const changeDaysHandler = (newDays) => {
+    if (isNaN(newDays) || newDays < 0) return;
     setDays(newDays);
   };
   const pickDayHandler = (keyObj) => {
@@ -55,7 +56,7 @@ const NotificationForm = ({ actionName, onSubmit }) => {
           <Text style={styles.subTitle}>Track Last</Text>
           <Input
             textInputConfig={{
-              maxLength: 1,
+              maxLength: 2,
               keyboardType: "number-pad",
               onChangeText: changeDaysHandler,
               value: days,

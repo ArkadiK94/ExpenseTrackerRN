@@ -23,7 +23,8 @@
       "foregroundImage": "./assets/adaptive-icon.png",
       "backgroundColor": "#FFFFFF"
     },
-    "package": "io.github.arkadik94.ExpenseTracker"
+    "package": "io.github.arkadik94.ExpenseTracker",
+    "googleServicesFile": "./google-services.json"
   },
   "web": {
     "favicon": "./assets/favicon.png"
