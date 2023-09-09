@@ -4,7 +4,7 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext({
   token: "",
   isAuthenticated: false,
-  authenticate: (token, email) => {},
+  authenticate: (token, email, expiresIn) => {},
   logout: () => {},
   userEmail: "",
 });
@@ -15,15 +15,23 @@ const AuthContextProvider = ({ children }) => {
     userEmail: "",
   });
 
-  const authenticate = async (userToken, userEmail) => {
+  const authenticate = async (userToken, userEmail, expiresIn, setTime) => {
     setUserInfo({ token: userToken, userEmail: userEmail });
-    await AsyncStorage.setItem("token", userToken);
-    await AsyncStorage.setItem("userEmail", userEmail);
+    await AsyncStorage.multiSet([
+      ["token", userToken],
+      ["userEmail", userEmail],
+      ["expiresIn", expiresIn],
+      ["setTime", setTime],
+    ]);
   };
   const logout = async () => {
     setUserInfo({ token: null, userEmail: null });
-    await AsyncStorage.removeItem("token");
-    await AsyncStorage.removeItem("userEmail");
+    await AsyncStorage.multiRemove([
+      "token",
+      "userEmail",
+      "expiresIn",
+      "setTime",
+    ]);
   };
   const value = {
     token: userInfo.token,

@@ -6,8 +6,8 @@ const authenticate = async ({ email, password }, mode) => {
     `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${FirebaseWebAPIKey}`,
     { email, password, returnSecureToken: true }
   );
-  const authToken = response.data.idToken;
-  return authToken;
+  const authTokenInfo = [response.data.idToken, response.data.expiresIn];
+  return authTokenInfo;
 };
 
 export const createNewUser = async (userData) => {

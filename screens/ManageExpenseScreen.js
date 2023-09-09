@@ -63,7 +63,12 @@ const ManageExpenseScreen = ({ route, navigation }) => {
     navigation.goBack();
   }
   if (error) {
-    return <ErrorOverlay message={error} onConfirm={errorHandler} />;
+    return (
+      <ErrorOverlay
+        message={`Error occurred, try again \n (${error})`}
+        onConfirm={errorHandler}
+      />
+    );
   }
   if (isLoading) {
     return <LoadingOverlay />;

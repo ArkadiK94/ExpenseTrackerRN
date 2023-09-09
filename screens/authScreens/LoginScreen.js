@@ -14,15 +14,25 @@ const LoginScreen = () => {
   const submitHandler = async (data) => {
     setLoading(true);
     try {
-      const token = await loginUser(data);
-      authCtx.authenticate(token, data.email);
+      const tokenInfo = await loginUser(data);
+      authCtx.authenticate(
+        tokenInfo[0],
+        data.email,
+        tokenInfo[1],
+        new Date().toISOString()
+      );
     } catch (err) {
       setError(err.message);
     }
     setLoading(false);
   };
   if (error)
-    return <ErrorOverlay message={error} onConfirm={() => setError("")} />;
+    return (
+      <ErrorOverlay
+        message={`Error occurred, try again \n (${error})`}
+        onConfirm={() => setError("")}
+      />
+    );
   if (loading) return <LoadingOverlay />;
   return (
     <AuthForm

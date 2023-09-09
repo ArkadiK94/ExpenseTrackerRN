@@ -88,14 +88,37 @@ const Root = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const authCtx = useContext(AuthContext);
+
+  const refreshToken = (tokenTimeSet, leftToExpire) => {
+    const gapInTime = Math.floor((new Date() - new Date(tokenTimeSet)) / 1000);
+    console.log(gapInTime);
+    if (gapInTime < leftToExpire) return;
+    console.log("refresh token here");
+  };
+
+  const mapUserData = (userData) => {
+    const userDataObj = {};
+    for (let item of userData) {
+      userDataObj[item[0]] = item[1];
+    }
+    return userDataObj;
+  };
+
   useEffect(() => {
     const getToken = async () => {
       setLoading(true);
       try {
-        const userToken = await AsyncStorage.getItem("token");
-        const userEmail = await AsyncStorage.getItem("userEmail");
-        if (userToken) {
-          authCtx.authenticate(userToken, userEmail);
+        const userData = await AsyncStorage.multiGet([
+          "token",
+          "userEmail",
+          "expiresIn",
+          "setTime",
+        ]);
+        const userDataObj = mapUserData(userData);
+        refreshToken(userDataObj.setTime, userDataObj.expiresIn);
+        if (userDataObj.token) {
+          const { token, userEmail, expiresIn, setTime } = userDataObj;
+          authCtx.authenticate(token, userEmail, expiresIn, setTime);
         }
       } catch (err) {
         setError(err.message);
@@ -104,8 +127,14 @@ const Root = () => {
     };
     getToken();
   }, []);
+
   if (error) {
-    return <ErrorOverlay message={error} onConfirm={() => setError("")} />;
+    return (
+      <ErrorOverlay
+        message={`Error occurred, try again \n (${error})`}
+        onConfirm={() => setError("")}
+      />
+    );
   }
   if (loading) return <LoadingOverlay />;
   return authCtx.isAuthenticated ? (

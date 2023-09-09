@@ -36,13 +36,8 @@
   "sdkVersion": "47.0.0",
   "platforms": ["ios", "android", "web"],
 
-  "plugins": [
-    [
-      "expo-notifications",
-      {
-        "icon": "./local/assets/icon.png",
-        "color": "#ffffff"
-      }
-    ]
-  ]
+  "notification": {
+    "icon": "./assets/notification-icon.png",
+    "color": "#ffffff"
+  }
 }

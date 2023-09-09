@@ -8,7 +8,25 @@ import { isNotBeforeXDays } from "../util/date";
 
 const ScheduleNotification = ({ navigation }) => {
   const expensesCtx = useContext(ExpensesContext);
+  const cancelNotifications = async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+  };
+
+  const sumTotalOfLastDays = (days) => {
+    let expenses = expensesCtx.expensesState;
+    if (days) {
+      expenses = expenses.filter((expense) => {
+        return isNotBeforeXDays(expense.date, days);
+      });
+    }
+    const expensesSum = expenses.reduce((total, item) => {
+      return total + item.price;
+    }, 0);
+    return expensesSum;
+  };
+
   const submitFormHandler = async (data) => {
+    cancelNotifications();
     const result = await new Promise((resolve) => {
       new Alert.alert(
         "Update Notifications",
@@ -29,27 +47,32 @@ const ScheduleNotification = ({ navigation }) => {
       );
     });
     if (!result) return;
-    let expenses = expensesCtx.expensesState;
-    if (data.days) {
-      expenses = expenses.filter((expense) => {
-        return isNotBeforeXDays(expense.date, data.days);
+    const expensesSum = sumTotalOfLastDays(data.days);
+    for (let dayNum of Object.keys(data.weekDays)) {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: `Last ${data.days} Days Spendings`,
+          body: `You have spent $${expensesSum} for last ${data.days} days`,
+        },
+        trigger: {
+          repeats: true,
+          weekday: +dayNum,
+          hour: data.date.getHours(),
+          minute: data.date.getMinutes(),
+        },
       });
     }
-    const expensesSum = expenses.reduce((total, item) => {
-      return total + item.price;
-    }, 0);
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: `Last ${data.days} Days Spendings`,
-        body: `You have spent $${expensesSum} for last ${data.days} days`,
-      },
-      trigger: { seconds: 2 },
-    });
-    console.log(data);
     navigation.goBack();
   };
   return (
-    <NotificationForm actionName="Schedule" onSubmit={submitFormHandler} />
+    <NotificationForm
+      actionName="Schedule"
+      onSubmit={submitFormHandler}
+      onDelete={() => {
+        cancelNotifications();
+        navigation.goBack();
+      }}
+    />
   );
 };
 

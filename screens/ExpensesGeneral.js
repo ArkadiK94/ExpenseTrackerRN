@@ -42,7 +42,7 @@ const ExpensesGeneral = ({ title, days }) => {
   if (error) {
     return (
       <ErrorOverlay
-        message={error}
+        message={`Error occurred, try again \n (${error})`}
         onConfirm={error === "Try again later!" ? null : errorHandler}
       />
     );

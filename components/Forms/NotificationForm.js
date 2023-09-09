@@ -1,25 +1,27 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import DatePicker from "react-native-date-picker";
+import { Ionicons } from "@expo/vector-icons";
 
 import { GlobalStyles } from "../../util/styles";
 import Button from "../UI/Button";
 import { getFormattedDate } from "../../util/date";
 import Input from "./Input";
+import Triggers from "../UI/Triggers";
 
-const NotificationForm = ({ actionName, onSubmit }) => {
+const NotificationForm = ({ actionName, onSubmit, onDelete }) => {
   const [date, setDate] = useState(
     new Date(`${getFormattedDate(new Date())}T00:00:00`)
   );
   const [days, setDays] = useState("7");
   const [notifWeekDays, setNotifWeekDays] = useState({
-    0: ["Sunday", 0],
-    1: ["Monday", 0],
-    2: ["Tuesday", 0],
-    3: ["Wednesday", 0],
-    4: ["Thursday", 0],
-    5: ["Friday", 0],
-    6: ["Saturday", 0],
+    1: ["Sunday", 0],
+    2: ["Monday", 0],
+    3: ["Tuesday", 0],
+    4: ["Wednesday", 0],
+    5: ["Thursday", 0],
+    6: ["Friday", 0],
+    7: ["Saturday", 0],
   });
   const changeDateHandler = (newDate) => {
     setDate(newDate);
@@ -40,10 +42,10 @@ const NotificationForm = ({ actionName, onSubmit }) => {
     });
   };
   const submitHandler = () => {
-    const weekDays = [];
-    for (let valueObj of Object.values(notifWeekDays)) {
+    const weekDays = {};
+    for (let [valueKey, valueObj] of Object.entries(notifWeekDays)) {
       if (valueObj[1]) {
-        weekDays.push(valueObj[0]);
+        weekDays[valueKey] = valueObj;
       }
     }
     onSubmit({ date, days, weekDays });
@@ -121,6 +123,13 @@ const NotificationForm = ({ actionName, onSubmit }) => {
             onPressAction={submitHandler}
           />
         </View>
+        <Triggers style={styles.bin} onPress={onDelete}>
+          <Ionicons
+            name="trash-outline"
+            color={GlobalStyles.colors.secondery700}
+            size={35}
+          />
+        </Triggers>
       </View>
     </ScrollView>
   );
@@ -216,5 +225,8 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 100,
     elevation: 5,
+  },
+  bin: {
+    alignSelf: "center",
   },
 });
