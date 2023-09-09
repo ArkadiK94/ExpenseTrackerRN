@@ -54,7 +54,7 @@ const ExpenseForm = ({ onSubmit, actionName, editExpense }) => {
       input.title.value.trim(),
       +input.price.value,
       input.date.value,
-      authCtx.userEmail
+      authCtx.email
     );
 
     const dateInvalid = enteredData.date.toString() === "Invalid Date";

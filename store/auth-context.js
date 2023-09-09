@@ -4,33 +4,41 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext({
   token: "",
   isAuthenticated: false,
-  authenticate: (token, email, expiresIn) => {},
+  authenticate: ({ token, email, expiresIn, setTime, refreshToken }) => {},
   logout: () => {},
-  userEmail: "",
+  email: "",
 });
 
 const AuthContextProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({
     token: "",
-    userEmail: "",
+    email: "",
   });
 
-  const authenticate = async (userToken, userEmail, expiresIn, setTime) => {
-    setUserInfo({ token: userToken, userEmail: userEmail });
+  const authenticate = async ({
+    token,
+    email,
+    expiresIn,
+    setTime,
+    refreshToken,
+  }) => {
+    setUserInfo({ token: token, email: email });
     await AsyncStorage.multiSet([
-      ["token", userToken],
-      ["userEmail", userEmail],
+      ["token", token],
+      ["email", email],
       ["expiresIn", expiresIn],
       ["setTime", setTime],
+      ["refreshToken", refreshToken],
     ]);
   };
   const logout = async () => {
-    setUserInfo({ token: null, userEmail: null });
+    setUserInfo({ token: null, email: null });
     await AsyncStorage.multiRemove([
       "token",
-      "userEmail",
+      "email",
       "expiresIn",
       "setTime",
+      "refreshToken",
     ]);
   };
   const value = {
@@ -38,7 +46,7 @@ const AuthContextProvider = ({ children }) => {
     isAuthenticated: !!userInfo.token,
     authenticate,
     logout,
-    userEmail: userInfo.userEmail,
+    email: userInfo.email,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

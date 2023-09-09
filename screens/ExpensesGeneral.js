@@ -17,10 +17,7 @@ const ExpensesGeneral = ({ title, days }) => {
     async function getExpenses() {
       setIsLoading(true);
       try {
-        const expensesData = await fetchExpense(
-          authCtx.token,
-          authCtx.userEmail
-        );
+        const expensesData = await fetchExpense(authCtx.token, authCtx.email);
         expensesCtx.setExpenses(expensesData);
       } catch (err) {
         setError(err.message);
@@ -31,7 +28,7 @@ const ExpensesGeneral = ({ title, days }) => {
   }, []);
   async function errorHandler() {
     try {
-      const expensesData = await fetchExpense(authCtx.token, authCtx.userEmail);
+      const expensesData = await fetchExpense(authCtx.token, authCtx.email);
       expensesCtx.setExpenses(expensesData);
       setError(null);
     } catch (error) {

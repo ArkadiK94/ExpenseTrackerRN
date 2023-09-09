@@ -17,6 +17,7 @@ import ExpensesContextProvider from "./store/expenses-context";
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import LoadingOverlay from "./components/UI/LoadingOverlay";
 import ErrorOverlay from "./components/UI/ErrorOverlay";
+import { getNewToken } from "./util/auth";
 
 const Stack = createNativeStackNavigator();
 Notifications.setNotificationHandler({
@@ -89,11 +90,11 @@ const Root = () => {
   const [error, setError] = useState("");
   const authCtx = useContext(AuthContext);
 
-  const refreshToken = (tokenTimeSet, leftToExpire) => {
+  const generateNewToken = async (tokenTimeSet, leftToExpire, refreshToken) => {
     const gapInTime = Math.floor((new Date() - new Date(tokenTimeSet)) / 1000);
-    console.log(gapInTime);
-    if (gapInTime < leftToExpire) return;
-    console.log("refresh token here");
+    if (gapInTime <= leftToExpire) return;
+    const newToken = await getNewToken(refreshToken);
+    return newToken;
   };
 
   const mapUserData = (userData) => {
@@ -110,15 +111,36 @@ const Root = () => {
       try {
         const userData = await AsyncStorage.multiGet([
           "token",
-          "userEmail",
+          "email",
           "expiresIn",
           "setTime",
+          "refreshToken",
         ]);
         const userDataObj = mapUserData(userData);
-        refreshToken(userDataObj.setTime, userDataObj.expiresIn);
-        if (userDataObj.token) {
-          const { token, userEmail, expiresIn, setTime } = userDataObj;
-          authCtx.authenticate(token, userEmail, expiresIn, setTime);
+        const { token, email, expiresIn, setTime, refreshToken } = userDataObj;
+        if (token) {
+          const newToken = await generateNewToken(
+            setTime,
+            expiresIn,
+            refreshToken
+          );
+          if (newToken) {
+            authCtx.authenticate({
+              token: newToken,
+              email,
+              expiresIn,
+              setTime: new Date().toISOString(),
+              refreshToken,
+            });
+          } else {
+            authCtx.authenticate({
+              token: token,
+              email,
+              expiresIn,
+              setTime,
+              refreshToken,
+            });
+          }
         }
       } catch (err) {
         setError(err.message);

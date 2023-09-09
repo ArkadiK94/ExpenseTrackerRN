@@ -1,8 +1,8 @@
 export default class Expense {
-  constructor(title, price, date, userEmail) {
+  constructor(title, price, date, email) {
     this.title = title;
     this.price = price;
     this.date = new Date(date);
-    this.userEmail = userEmail;
+    this.email = email;
   }
 }

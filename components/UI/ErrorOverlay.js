@@ -1,6 +1,7 @@
 import { View, StyleSheet, Text } from "react-native";
 
 import Button from "./Button";
+import { GlobalStyles } from "../../util/styles";
 
 function ErrorOverlay({ message, onConfirm }) {
   return (
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignContent: "space-between",
+    backgroundColor: GlobalStyles.colors.primary700,
   },
   text: {
     textAlign: "center",

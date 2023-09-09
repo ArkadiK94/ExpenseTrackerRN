@@ -15,12 +15,13 @@ const LoginScreen = () => {
     setLoading(true);
     try {
       const tokenInfo = await loginUser(data);
-      authCtx.authenticate(
-        tokenInfo[0],
-        data.email,
-        tokenInfo[1],
-        new Date().toISOString()
-      );
+      authCtx.authenticate({
+        token: tokenInfo[0],
+        email: data.email,
+        expiresIn: tokenInfo[1],
+        setTime: new Date().toISOString(),
+        refreshToken: tokenInfo[2],
+      });
     } catch (err) {
       setError(err.message);
     }
