@@ -9,6 +9,7 @@ Technologies that we used:
 3. expo
 4. expo-notifications
 5. @react-native-async-storage/async-storage
+6. firebase features: realtime database , authentication
 
 Important features from React and other used libraries:
 
