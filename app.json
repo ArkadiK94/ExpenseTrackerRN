@@ -35,9 +35,18 @@
   },
   "sdkVersion": "47.0.0",
   "platforms": ["ios", "android", "web"],
-
   "notification": {
     "icon": "./assets/notification-icon.png",
     "color": "#ffffff"
-  }
+  },
+  "plugins": [
+    "expo-build-properties",
+    {
+      "android": {
+        "compileSdkVersion": 33,
+        "targetSdkVersion": 33,
+        "enableProguardInReleaseBuilds": true
+      }
+    }
+  ]
 }
